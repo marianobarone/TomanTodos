@@ -176,6 +176,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TomanTodosModels\Categoria.cs" />
+    <Compile Include="Models\TomanTodosModels\Movimiento.cs" />
+    <Compile Include="Models\TomanTodosModels\Producto.cs" />
+    <Compile Include="Models\TomanTodosModels\Stock.cs" />
+    <Compile Include="Models\TomanTodosModels\Sucursal.cs" />
+    <Compile Include="Models\TomanTodosModels\Venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
