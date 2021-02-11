@@ -11,6 +11,7 @@ namespace TomanTodos.Models.TomanTodosModels
         [Key]
         public Guid Id { get; set; }
         public string Nombre { get; set; }
-        public List<Stock> Stock { get; set; }
+        public string Direccion { get; set; }
+
     }
 }

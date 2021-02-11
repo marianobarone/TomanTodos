@@ -1,0 +1,7 @@
+enable-migrations
+add-migration InitialModel
+update-database
+Update-Database -Script -SourceMigration:0
+
+
+Update-Database -Script -SourceMigration: <pointFromWichYouWantToStartWithGeneration> -TargetMigration: <pointWhereToEndWithGeneration>

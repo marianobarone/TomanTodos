@@ -7,18 +7,16 @@ using System.Web;
 
 namespace TomanTodos.Models.TomanTodosModels
 {
-    public class Stock
+    public class MovimientoDetalle
     {
-        [Key]
-        public Guid Id { get; set; }
-        public int Cantidad { get; set; }
+        public int Id { get; set; }
+
+        public decimal Cantidad { get; set; }
 
         public Guid ProductoId { get; set; }
         public Producto Producto { get; set; }
 
-
-        public Sucursal Sucursal { get; set; }
         public Guid SucursalId { get; set; }
-
+        public Sucursal Sucursal { get; set; }
     }
 }

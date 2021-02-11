@@ -9,15 +9,9 @@ namespace TomanTodos.Models.TomanTodosModels
 {
     public class Movimiento
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [ForeignKey(nameof(Producto))]
-        public Guid ProductoId { get; set; }
-        public Producto Producto { get; set; }
-
-        [ForeignKey(nameof(Sucursal))]
-        public Guid SucursalId { get; set; }
-        public Sucursal Sucursal { get; set; }
+        public int Id { get; set; }
+        //QUE FECHA
+        public DateTime FechaMovimiento { get; set; }
+        public List<MovimientoDetalle> MovimientosDetalle { get; set; }
     }
 }
