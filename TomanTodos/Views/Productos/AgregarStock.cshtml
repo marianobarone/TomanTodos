@@ -1,0 +1,27 @@
+﻿@model TomanTodos.Models.TomanTodosModels.Producto
+
+@{
+    ViewBag.Title = "Agregar Stock";
+}
+
+<h4>Actualizar Stock de "@Model.Nombre"</h4>
+
+<form action="/Productos/AgregarStock" method="post">
+
+    <div class="form-group">
+        <label>Cantidad</label>
+        <div class="col-md-10">
+            <input type="number" name="cantidad" value="" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Sucursal</label>
+        <div class="col-md-10">
+            @Html.DropDownList("sucursalId", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <input type="hidden" name="productoId" value="@Model.Id"/>
+    <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary"/>
+</form>

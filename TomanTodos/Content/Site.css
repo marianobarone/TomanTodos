@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#ttnavbar {
+    margin-top: -50px;
+}
+
+.tabla-sucursal{
+    margin-bottom: 0px;
+}

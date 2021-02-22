@@ -7,11 +7,16 @@ using System.Web;
 
 namespace TomanTodos.Models.TomanTodosModels
 {
+    [Table("Movimientos")]
     public class Movimiento
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         //QUE FECHA
-        public DateTime FechaMovimiento { get; set; }
+        //public DateTime FechaMovimiento { get; set; }
+        [ForeignKey(nameof(Producto))]
+        public Guid ProductoId { get; set; }
+        public Producto Producto { get; set; }
         public List<MovimientoDetalle> MovimientosDetalle { get; set; }
     }
 }

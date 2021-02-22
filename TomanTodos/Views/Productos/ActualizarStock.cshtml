@@ -1,0 +1,47 @@
+﻿@model TomanTodos.Models.TomanTodosModels.Producto
+
+@{
+    ViewBag.Title = "Agregar Stock";
+}
+
+<br />  
+<h2>Actualizar Stock de "@Model.Nombre"</h2>
+
+<div class="row">
+
+    @if (ViewData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h3>No se puede descontar la cantidad de stock ingresada. Modifique la cantidad de stock que desea descontar</h3>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="col-md-4">
+        <img src="/Productos/RetrieveImage/@Model.Id" alt="" height="300" width="300" class="rounded" />
+    </div>
+
+    <div class="col-md-8">
+        <form action="/Productos/ActualizarStock" method="post">
+
+            <div class="form-group">
+                <label>Cantidad a descontar</label>
+                <div class="col-md-10">
+                    <input type="number" name="cantidad" value="" min="1" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Sucursal</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("sucursalId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <input type="hidden" name="productoId" value="@Model.Id" />
+            <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TomanTodos.Models.TomanTodosModels.Producto>
+
+@{
+    ViewBag.Title = "Index";
+    int cant = 0;
+}
+
+<br />
+<h2>Stock de Productos</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th></th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+
+        <th>
+            <label>Cantidad</label>
+        </th>
+
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        cant = 0;
+
+        foreach (var s in item.Stock)
+        {
+            cant += s.Cantidad;
+        }
+
+        <tr>
+            <td>
+                <img src="/Productos/RetrieveImage/@item.Id" alt="" height="80" width="80" class="rounded" />
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Nombre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => cant)
+            </td>
+
+            <td>
+                <form action="/Productos/DetallesProducto" method="post">
+                    <input type="hidden" name="Id" value="@item.Id" />
+                    <input type="submit" value="Detalles" class="btn btn-primary" />
+                </form>
+            </td>
+
+            <td>
+                @*<form action="/Productos/AgregarStock" method="get">*@
+                <form action="/StockItems/AgregarStock" method="get">
+                    <input type="hidden" name="Id" value="@item.Id" />
+                    <input type="submit" value="Agregar Stock" class="btn btn-outline-success" />
+                </form>
+            </td>
+
+            <td>
+                <form action="/Productos/ActualizarStock" method="get">
+                    <input type="hidden" name="Id" value="@item.Id" />
+                    <input type="submit" value="Actualizar Stock" class="btn btn-outline-danger" />
+                </form>
+            </td>
+
+        </tr>
+    }
+</table>

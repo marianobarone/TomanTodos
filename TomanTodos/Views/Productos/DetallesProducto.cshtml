@@ -1,0 +1,37 @@
+﻿@model TomanTodos.Models.TomanTodosModels.Producto
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<br />
+<h2>Detalles Stock @Model.Nombre</h2>
+
+@if (!@Model.Stock.Any())
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h3>No hay stock en ninguna sucursal</h3>
+    </div>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                <label>Sucursal</label>
+            </th>
+            <th>
+                <label>Cantidad</label>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Stock)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Sucursal.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+            </tr>
+        }
+
+    </table>
+}

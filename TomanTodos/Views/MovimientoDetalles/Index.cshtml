@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TomanTodos.Models.TomanTodosModels.MovimientoDetalle>
+
+@{
+    ViewBag.Title = "Index";
+    int cant = 0;
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <label>Producto</label>
+        </th>
+        <th>
+            <label>Sucursal</label>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaMovimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        cant = Convert.ToInt32(item.Cantidad);
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sucursal.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaMovimiento)
+            </td>
+            <td>
+                @if (item.TipoMovimiento == TomanTodos.Models.TomanTodosModels.TipoMovimiento.Sustraccion)
+                {
+                    <label> -@cant</label>
+                }
+                else
+                {
+                    <label>@cant</label>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

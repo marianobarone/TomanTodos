@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TomanTodos.Models.TomanTodosModels.Sucursal>
+
+@{
+    ViewBag.Title = "Index";
+
+    var @id_i = 0;
+    var @id_j = 0;
+}
+
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Sucursales</h2>
+    </div>
+    <div class="col-md-6">
+        <a class="btn btn-success float-right form-group" href="@Url.Action("Create", "Sucursales")">Agregar Sucursal</a>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    id_i++;
+
+    <div class="col-lg-12 list-group">
+
+        <div id="accordion">
+            <div class="card form-group">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#sucursal_@id_i" aria-expanded="false" aria-controls="collapseOne_@id_i">
+                            <h5> @Html.DisplayFor(modelItem => item.Nombre) </h5>
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="sucursal_@id_i" class="collapse" aria-labelledby="headingOne_@id_i">
+
+                    <table class="table table-striped tabla-sucursal">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="align-middle">Producto</th>
+                                <th class="align-middle">Cantidad</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var stock in item.StockItems)
+                            {
+                                id_j++;
+                                <tr>
+                                    <td class="align-middle">@Html.DisplayFor(model => stock.Producto.Nombre)</td>
+                                    <td class="align-middle">@Html.DisplayFor(model => stock.Cantidad)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
