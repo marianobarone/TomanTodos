@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*<title>@ViewBag.Title - My ASP.NET Application</title>*@
+    <title>Toman Todos</title>
+    <link href="~/Content/lib/favicon.png" rel="shortcut icon" />
+
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/lib/easy-pie-chart/easy-pie-chart.css" />
     <link rel="stylesheet" href="~/Content/fontawesome-all.min.css" />
     <link rel="stylesheet" href="~/Content/lib/msgPop/msgPop.css" />
 
@@ -57,33 +62,51 @@
 
     <script src="~/Content/lib/msgPop/msgPop.js"></script>
 
+
+
     @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+
+
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/lib/easy-pie-chart/easypiechart.js"></script>
+    <script src="~/Content/lib/easy-pie-chart/jquery.easypiechart.min.js"></script>
+    <script src="~/Content/lib/site.js"></script>
+
+
+
     @if (TempData["OK"] as bool? ?? false)
     {
-
+        var status = TempData["OK"].ToString();
         var cantidad = TempData["Cantidad"].ToString();
+        var producto = TempData["Producto"].ToString();
+        var sucursal = TempData["Sucursal"].ToString();
+        var movimiento = TempData["Movimiento"].ToString();
+
+        //var resp = new
+        //{
+        //    status = "uno",
+        //    cantidad = "dos",
+        //    producto = "tres",
+        //    sucursal = "cuatro",
+        //};
 
         <script>
-            MsgPop.closeAll();
-            MsgPop.displaySmall = true;
-            MsgPop.open({
-                Type: "success",
-                Content: "Se agregaron " + @TempData["Cantidad"].ToString() + " @TempData["Producto"].ToString()" + " a " + " @TempData["Sucursal"].ToString()",
-            });
+            notification('@status', '@cantidad', '@producto', '@sucursal', '@movimiento');
         </script>
     }
     else if (TempData["OK"] as bool? ?? false)
     {
+        var status = TempData["OK"].ToString();
+        var producto = TempData["Producto"].ToString();
+
+
         <script>
-            MsgPop.closeAll();
-            MsgPop.displaySmall = true;
-            MsgPop.open({
-                Type: "error",
-                Content: "Error! No se pudo agregar el stock ingresado",
-            });
+            notification('@status', null, '@producto', null, null);
         </script>
     }
 

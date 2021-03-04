@@ -1,31 +1,274 @@
-﻿@{
+﻿@model IEnumerable<TomanTodos.Models.TomanTodosModels.Producto>
+
+@{
     ViewBag.Title = "Home Page";
+    var cantidad = 0;
+    var id = 0;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        cantidad = 0;
+        id++;
+
+        foreach (var s in item.Stock)
+        {
+            cantidad += s.Cantidad;
+        }
+
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-counter primary home-card">
+                <div class="row">
+                    <div class="col-4 img-div">
+                        <img class="home-img" src="/Productos/RetrieveImage/@item.Id" alt="" height="120" width="120" />
+                    </div>
+                    <div class="col-8">
+                        <span class="count-numbers count">@cantidad</span>
+                        <span class="count-name">@item.Nombre</span>
+                        @*<a class="btn pr-0 home-arrow" data-toggle="collapse" data-target="#sucursal_@id" aria-expanded="false" aria-controls="collapseOne_@id">
+                            <i class="fa fa-arrow-down float-right" aria-hidden="true"></i>
+                        </a>*@
+
+                        @*<div class="float-right options">
+                                <a class="btn btn-outline-success" href="@Url.Action("AgregarStock", "StockItems")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Agregar stock">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-outline-danger" href="@Url.Action("ActualizarStock", "Productos")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Descontar stock">
+                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                </a>
+                            </div>*@
+
+
+                        <div class="float-right options">
+                            <a class="btn btn-outline-success" href="@Url.Action("AgregarStock", "StockItems")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Agregar stock">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-outline-danger" href="@Url.Action("ActualizarStock", "Productos")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Descontar stock">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    @*<input type="text" value="10" id="numero_@id" />
+                    <input type="hidden" name="name" value="@item.Id" id="id_@id" />
+                    <input type="hidden" name="name" value="c8eb43a3-c188-4a2b-840b-e588b1bccbed" id="suc_@id" />*@
+                </div>
+
+                <!--<div id="sucursal_@id" class="collapse sucursales-transition">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" id="tbl-sucursales-home">
+                                <thead>
+                                    <tr>-->
+                                        @*<th>
+                                                Sucursal
+                                            </th>
+                                            <th>
+                                                Cantidad
+                                            </th>*@
+                                    <!--</tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var s in item.Stock)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => s.Sucursal.Nombre)</td>
+                                            <td>@Html.DisplayFor(modelItem => s.Cantidad)</td>
+
+                                            <td>
+                                                <a id="ok" class="btn btn-outline-success" data-toggle="tooltip" data-placement="bottom" title="Agregar stock">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <input type="number" name="name" value="" style="width:60px;"/>
+                                            </td>
+
+                                            <td>
+                                                <a class="btn btn-outline-danger" data-toggle="tooltip" data-placement="bottom" title="Descontar stock">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    }
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<br />
+
+<div class="col-md-12 card details-card">
+    <div class="card-header">
+        <div class="row d-flex align-items-center">
+            <div class="col-md-6">
+                <h5 class="card-title">Últimos Movimientos</h5>
+            </div>
+
+            <div class="col-md-6 float-right">
+                <a class="btn btn-dark float-right" href="@Url.Action("Index", "MovimientoDetalles")">Más movimientos</a>
+
+            </div>
+        </div>
+
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <div class="card-body table-responsive">
+
+        <table class="table test" id="index-table" style="width:100%">
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Producto</th>
+                    <th>Sucursal</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+
+            <tbody class="scroll">
+                @foreach (var item in ViewBag.Movimientos)
+                {
+                    <tr>
+                        <td>@item.FechaMovimiento.ToShortDateString()</td>
+
+                        <td>
+                            <img class="home-img" src="/Productos/RetrieveImage/@item.Producto.Id" alt="" height="50" width="50" />
+                        </td>
+
+                        <td>@item.Sucursal.Nombre</td>
+
+                        @*<td>*@
+                        @if (item.TipoMovimiento == TomanTodos.Models.TomanTodosModels.TipoMovimiento.Sustraccion)
+                        {
+                            <td>
+                                <span class="badge badge-danger">-@Convert.ToInt32(@item.Cantidad)</span>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td>
+                                <span class="badge badge-success">@Convert.ToInt32(@item.Cantidad)</span>
+                            </td>
+
+                        }
+                        @*</td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
 </div>
+
+
+@*<a class="btn btn-outline-success" href="@Url.Action("AgregarStock", "StockItems")?Id= @item.Id">
+        <i class="fa fa-plus-square" aria-hidden="true"></i>
+    </a>
+    <a class="btn btn-outline-danger" href="@Url.Action("ActualizarStock", "Productos")?Id= @item.Id">
+        <i class="fa fa-minus-square" aria-hidden="true"></i>
+    </a>*@
+
+@*<div class="col-md-4">
+        <div class="card-counter primary">
+            <div class="row">
+                <div class="col-4 img-div">
+                    <img class="home-img" src="/Productos/RetrieveImage/@item.Id" alt="" height="120" width="120" />
+                </div>
+                <div class="col-8">
+                    <span class="count-numbers count">@cantidad</span>
+                    <span class="count-name">@item.Nombre</span>
+                </div>
+
+            </div>
+
+        </div>
+    </div>*@
+
+
+@*<div class="col-md-3">
+        <div class="card-counter primary">
+            <div class="row">
+                <div class="col-6">
+                    <span class="count-numbers count">@cantidad</span>
+                </div>
+                <div class="col-6 img-div">
+                    <img class="home-img" src="/Productos/RetrieveImage/@item.Id" alt="" height="120" width="120" />
+                </div>
+            </div>
+            <span class="count-name">@item.Nombre</span>
+        </div>
+    </div>*@
+
+@*<div class="col-md-3">
+        <div class="card-counter primary">
+            <i class="fa fa-code-fork"></i>
+            <span class="count-numbers">12</span>
+            <span class="count-name">Flowz</span>
+        </div>
+    </div>*@
+
+@*<div class="col-md-3 card ">
+        <div class="row">
+            <div class="col-6">
+                <span>@cantidad</span>
+            </div>
+            <div class="col-6">
+                <img src="/Productos/RetrieveImage/@item.Id" alt="" height="80" width="80" class="rounded" />
+            </div>
+        </div>
+
+        <span class="">@item.Nombre</span>
+
+
+    </div>*@
+
+<!--<div class="col-md-3">
+    <div class="card-counter primary row">
+        <div class="col-8">
+            <span class="count-numbers count">cantidad</span>
+            <span class="count-name">item.Nombre</span>
+        </div>
+
+        <div class="col-4">
+            <a href="Url.Action("VerStockProductos", "Productos")">
+                <img src="/Productos/RetrieveImage/item.Id" alt="" height="80" width="80" class="rounded" />
+            </a>
+        </div>
+    </div>
+    <span class="count-name">item.Nombre</span>-->
+@*<form action="/StockItems/AgregarStock" method="get">
+        <input type="hidden" name="Id" value="@item.Id" />
+        <input type="submit" value="Agregar Stock" class="btn btn-outline-success" />
+    </form>*@
+
+@*<a class="btn btn-info" href="@Url.Action("StockItems", "AgregarStock", new { id = item.Id}) /@item.Id )">Agregar</a>*@
+<!--</div>-->
+@*<div class="col-md-3">
+        <div class="card-counter primary">
+            <i class="fa fa-code-fork"></i>
+            <span class="count-numbers count">12</span>
+            <span class="count-name">Flowz</span>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card-counter primary">
+            <i class="fa fa-database"></i>
+            <span class="count-numbers count">12</span>
+            <span class="count-name">Flowz</span>
+        </div>
+    </div>
+
+    <div id="shiva"><span class="count">200</span></div>*@

@@ -130,6 +130,10 @@ namespace TomanTodos.Controllers
             return cover;
         }
 
+
+
+        #region ActualizarStock
+
         [HttpGet]
         public ActionResult ActualizarStock(Guid? id)
         {
@@ -145,7 +149,6 @@ namespace TomanTodos.Controllers
 
             return View(producto);
         }
-
         [HttpPost]
         public ActionResult ActualizarStock(Guid productoId, Guid sucursalId, int cantidad)
         {
@@ -155,42 +158,59 @@ namespace TomanTodos.Controllers
 
             var movimientoExistente = db.Movimientos.Include(d => d.MovimientosDetalle).FirstOrDefault(p => p.ProductoId == productoId);
 
-            if (stock != null)
+            try
             {
-                if (stock.Cantidad >= cantidad)
+                if (stock != null)
                 {
-                    stock.Cantidad -= cantidad;
-
-                    MovimientoDetalle detalle = new MovimientoDetalle
+                    if (stock.Cantidad >= cantidad)
                     {
-                        Id = Guid.NewGuid(),
-                        FechaMovimiento = DateTime.Now,
-                        TipoMovimiento = TipoMovimiento.Sustraccion,
-                        Producto = db.Productos.FirstOrDefault(p => p.Id == productoId),
-                        SucursalId = sucursalId,
-                        Sucursal = db.Sucursales.FirstOrDefault(s => s.Id == sucursalId),
-                        Cantidad = cantidad
-                    };
+                        stock.Cantidad -= cantidad;
 
-                    if (movimientoExistente != null)
-                    {
-                        movimientoExistente.MovimientosDetalle.Add(detalle);
+                        MovimientoDetalle detalle = new MovimientoDetalle
+                        {
+                            Id = Guid.NewGuid(),
+                            FechaMovimiento = DateTime.Now,
+                            TipoMovimiento = TipoMovimiento.Sustraccion,
+                            Producto = db.Productos.FirstOrDefault(p => p.Id == productoId),
+                            SucursalId = sucursalId,
+                            Sucursal = db.Sucursales.FirstOrDefault(s => s.Id == sucursalId),
+                            Cantidad = cantidad
+                        };
+
+                        if (movimientoExistente != null)
+                        {
+                            movimientoExistente.MovimientosDetalle.Add(detalle);
+                        }
+                        else
+                        {
+                            Movimiento nuevoMovimiento = new Movimiento
+                            {
+                                Id = Guid.NewGuid(),
+                                ProductoId = productoId,
+                                Producto = db.Productos.FirstOrDefault(p => p.Id == productoId),
+                                MovimientosDetalle = new List<MovimientoDetalle>()
+                            };
+
+                            nuevoMovimiento.MovimientosDetalle.Add(detalle);
+                            db.Movimientos.Add(nuevoMovimiento);
+                        }
+
+                        db.SaveChanges();
+
+                        TempData["OK"] = true;
+                        TempData["Movimiento"] = Models.TomanTodosModels.TipoMovimiento.Sustraccion;
+                        TempData["Cantidad"] = cantidad;
+                        TempData["Producto"] = db.Productos.FirstOrDefault(p => p.Id == productoId).Nombre;
+                        TempData["Sucursal"] = db.Sucursales.FirstOrDefault(s => s.Id == sucursalId).Nombre;
+
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        Movimiento nuevoMovimiento = new Movimiento
-                        {
-                            Id = Guid.NewGuid(),
-                            ProductoId = productoId,
-                            Producto = db.Productos.FirstOrDefault(p => p.Id == productoId),
-                            MovimientosDetalle = new List<MovimientoDetalle>()
-                        };
-
-                        nuevoMovimiento.MovimientosDetalle.Add(detalle);
-                        db.Movimientos.Add(nuevoMovimiento);
+                        ViewData["Error"] = true;
+                        ViewBag.SucursalId = new SelectList(db.Sucursales, "Id", "Nombre");
+                        return View(db.Productos.FirstOrDefault(p => p.Id == productoId));
                     }
-
-                    db.SaveChanges();
                 }
                 else
                 {
@@ -198,16 +218,19 @@ namespace TomanTodos.Controllers
                     ViewBag.SucursalId = new SelectList(db.Sucursales, "Id", "Nombre");
                     return View(db.Productos.FirstOrDefault(p => p.Id == productoId));
                 }
+
             }
-            else
+            catch (Exception e)
             {
-                ViewData["Error"] = true;
-                ViewBag.SucursalId = new SelectList(db.Sucursales, "Id", "Nombre");
-                return View(db.Productos.FirstOrDefault(p => p.Id == productoId));
+                throw e;
             }
 
-            return RedirectToAction("VerStockProductos");
+
+            //return RedirectToAction("VerStockProductos");
+            // return RedirectToAction("Index","Home", new { ok = });
         }
+        #endregion
+
 
         // GET: Productos/Edit/5
         public ActionResult Edit(Guid? id)
@@ -291,6 +314,27 @@ namespace TomanTodos.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //[HttpPost]
+        //public ActionResult Prueba(Guid productoId, Guid sucursalID, int cantidad)
+        //{
+        //    var sucursal = db.Sucursales.FirstOrDefault(s => s.Id == sucursalID);
+
+        //    var stock = db.StockItems.FirstOrDefault(s => s.ProductoId == productoId && s.SucursalId == sucursalID);
+
+        //    var movimientoExistente = db.Movimientos.Include(d => d.MovimientosDetalle).FirstOrDefault(p => p.ProductoId == productoId);
+
+        //        if (stock != null)
+        //        {
+        //            if (stock.Cantidad >= cantidad)
+        //            {
+        //                stock.Cantidad -= cantidad;
+        //            }
+        //        }
+        //                return this.Json(new { code = (int)HttpStatusCode.OK, text = "funciona" });
+
+        //    //return Json("ok", JsonRequestBehavior.AllowGet);
+        //}
     }
 }
 

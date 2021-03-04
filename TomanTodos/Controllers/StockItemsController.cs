@@ -197,13 +197,15 @@ namespace TomanTodos.Controllers
                 }
 
                 TempData["OK"] = true;
+                TempData["Movimiento"] = Models.TomanTodosModels.TipoMovimiento.Adicion;
                 TempData["Cantidad"] = stockItem.Cantidad;
                 TempData["Producto"] = db.Productos.FirstOrDefault(p => p.Id == stockItem.ProductoId).Nombre;
                 TempData["Sucursal"] = db.Sucursales.FirstOrDefault(s => s.Id == stockItem.SucursalId).Nombre;
                 //db.MovimientosDetalle.Add(detalle);
                 db.SaveChanges();
 
-                return RedirectToAction("VerStockProductos", "Productos");
+                //return RedirectToAction("VerStockProductos", "Productos");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception e)
             {

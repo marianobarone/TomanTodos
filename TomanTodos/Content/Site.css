@@ -27,6 +27,293 @@ textarea {
     margin-top: -50px;
 }
 
-.tabla-sucursal{
+.tabla-sucursal {
     margin-bottom: 0px;
+}
+
+.card-counter {
+    box-shadow: 2px 2px 10px #DADADA;
+    margin: 5px;
+    padding: 20px 10px;
+    background-color: #fff;
+    /*    height: 100px;*/
+    border-radius: 5px;
+    transition: .3s linear all;
+}
+
+    .card-counter:hover {
+        box-shadow: 4px 4px 20px #DADADA;
+        transition: .3s linear all;
+    }
+
+    .card-counter.primary {
+        background-color: #007bff;
+        color: #FFF;
+    }
+
+    .card-counter.danger {
+        background-color: #ef5350;
+        color: #FFF;
+    }
+
+    .card-counter.success {
+        background-color: #66bb6a;
+        color: #FFF;
+    }
+
+    .card-counter.info {
+        background-color: #26c6da;
+        color: #FFF;
+    }
+
+    /*    .card-counter i {
+        font-size: 5em;
+        opacity: 0.2;
+    }*/
+
+    .card-counter .count-numbers {
+        position: absolute;
+        font-size: 40px;
+        display: block;
+        margin-top: -8px;
+    }
+
+    .card-counter .count-name {
+        position: absolute;
+        font-style: italic;
+        text-transform: capitalize;
+        opacity: 0.5;
+        display: block;
+        font-size: 18px;
+        top: 44px;
+    }
+
+.img-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-img {
+    margin-bottom: -30px;
+    margin-top: -34px;
+}
+
+/*.card-counter .count-numbers {
+        position: absolute;
+        right: 35px;
+        top: 20px;
+        font-size: 32px;
+        display: block;
+    }
+
+    .card-counter .count-name {
+        position: absolute;
+        right: 35px;
+        top: 65px;
+        font-style: italic;
+        text-transform: capitalize;
+        opacity: 0.5;
+        display: block;
+        font-size: 18px;
+    }
+*/
+
+
+.card-counter:hover {
+    cursor: pointer;
+}
+
+    .card-counter:hover .options {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.card-counter primary:hover > .options {
+    visibility: visible;
+}
+
+.options {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s linear,opacity 0.3s linear
+}
+
+    .options a {
+        background-color: #ffffff;
+    }
+
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 3.375rem;
+    height: 2.375rem;
+    line-height: 2rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.details-card {
+    /*max-height: 300px;*/
+    overflow-y: scroll;
+    font-size: 15,5px;
+    padding: 0px;
+    overflow-y: hidden;
+}
+
+    .details-card .card-body {
+        padding: 0px;
+        margin-top: -6px;
+        overflow-y: hidden;
+    }
+
+    .details-card .dataTables_scrollHead {
+        background-color: #343a40;
+        border-color: #454d55;
+    }
+
+.scroll {
+    /*height: 300px;*/
+    /*overflow-y: scroll;*/
+}
+
+.card-header {
+    /*background-color: #007bff;*/
+}
+
+.card-title {
+    vertical-align: middle;
+    margin: 0px;
+}
+
+.dataTables_scrollBody {
+    overflow-y: hidden !important;
+}
+
+    .dataTables_scrollBody:hover {
+        overflow-y: scroll !important;
+    }
+
+    .dataTables_scrollBody::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .dataTables_scrollBody::-webkit-scrollbar {
+        width: 8px;
+        background-color: #F5F5F5;
+    }
+
+    .dataTables_scrollBody::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+    }
+
+.dataTables_paginate {
+    cursor: not-allowed;
+    border: none;
+}
+
+    .dataTables_paginate ul li > a {
+        border: none;
+        border-radius: 10px;
+        margin: 2px;
+        color: #343a40;
+    }
+
+        .dataTables_paginate ul li > a:hover {
+            background-color: #343a40;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            margin: 2px;
+        }
+
+    .dataTables_paginate .page-item.active .page-link {
+        background-color: #343a40;
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        margin: 2px;
+    }
+
+
+
+.tes {
+    padding: 17px 0 17px 17px;
+    width: 300px;
+    height: 200px;
+    overflow-y: scroll;
+    mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+    mask-size: 100% 20000px;
+    mask-position: left bottom;
+    -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+    -webkit-mask-size: 100% 20000px;
+    -webkit-mask-position: left bottom;
+    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+}
+
+    .tes:hover {
+        -webkit-mask-position: left top;
+    }
+
+.btn-accordion {
+    text-decoration: none;
+    font-size: 23px;
+    transition: 0.5s ease-in-out
+}
+
+    .btn-accordion:hover {
+        text-decoration: none;
+        font-size: 25px;
+        transition: 0.5s ease-in-out
+    }
+
+.sucursales-card .card-header {
+    height: 75px;
+}
+
+.sucursales-transition {
+    transition: 0.8s ease-in-out;
+}
+
+.home-card .card-body {
+    /*padding-top: 0px;*/
+    padding-bottom: 0px;
+}
+
+.home-card {
+    /*padding-bottom: 0px;*/
+}
+
+#tbl-sucursales-home {
+    margin-bottom: 0px;
+    /* border: none; */
+}
+
+    #tbl-sucursales-home td {
+        padding: 5px;
+        border: none;
+    }
+
+.home-arrow {
+    float: right !important;
+    right: 15px;
+    top: 47px;
+    position: absolute;
+    top: 44px;
+    text-align: right;
+}
+
+.badge {
+    width: 30%;
 }

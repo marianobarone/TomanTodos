@@ -5,78 +5,122 @@
     int cant = 0;
 }
 
+<script src="~/Content/lib/dataTables/datatables.min.js"></script>
+<link rel="stylesheet" href="~/Content/lib/dataTables/datatables.min.css" />
+
+
 <br />
 <h2>Stock de Productos</h2>
 
-<table class="table table-striped">
-    <tr>
-        <th></th>
+<div class="table-responsive">
+    <table class="table table-striped display" id="prueba" style="width:100%">
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Categoria)
-        </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </th>
 
-        <th>
-            <label>Cantidad</label>
-        </th>
+                <th>
+                    Cantidad
+                </th>
 
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
 
-    @foreach (var item in Model)
-    {
-        cant = 0;
+        <tbody>
+            @foreach (var item in Model)
+            {
+                cant = 0;
 
-        foreach (var s in item.Stock)
-        {
-            cant += s.Cantidad;
-        }
+                foreach (var s in item.Stock)
+                {
+                    cant += s.Cantidad;
+                }
 
-        <tr>
-            <td>
-                <img src="/Productos/RetrieveImage/@item.Id" alt="" height="80" width="80" class="rounded" />
-            </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
+                <tr>
+                    <td class="align-middle">
+                        <img src="/Productos/RetrieveImage/@item.Id" alt="" height="120" width="120" class="rounded" />
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.Nombre)
-            </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => cant)
-            </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Categoria.Nombre)
+                    </td>
 
-            <td>
-                <form action="/Productos/DetallesProducto" method="post">
-                    <input type="hidden" name="Id" value="@item.Id" />
-                    <input type="submit" value="Detalles" class="btn btn-primary" />
-                </form>
-            </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => cant)
+                    </td>
 
-            <td>
-                @*<form action="/Productos/AgregarStock" method="get">*@
-                <form action="/StockItems/AgregarStock" method="get">
-                    <input type="hidden" name="Id" value="@item.Id" />
-                    <input type="submit" value="Agregar Stock" class="btn btn-outline-success" />
-                </form>
-            </td>
+                    <td class="align-middle text-center">
+                        <form action="/Productos/DetallesProducto" method="post">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <input type="submit" value="Detalles" class="btn btn-primary" />
+                        </form>
+                    </td>
 
-            <td>
-                <form action="/Productos/ActualizarStock" method="get">
-                    <input type="hidden" name="Id" value="@item.Id" />
-                    <input type="submit" value="Actualizar Stock" class="btn btn-outline-danger" />
-                </form>
-            </td>
+                    <td class="align-middle text-center">
+                        @*<form action="/Productos/AgregarStock" method="get">*@
+                        <form action="/StockItems/AgregarStock" method="get">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <input type="submit" value="Agregar Stock" class="btn btn-outline-success" />
+                        </form>
+                    </td>
 
-        </tr>
-    }
-</table>
+                    <td class="align-middle text-center">
+                        <form action="/Productos/ActualizarStock" method="get">
+                            <input type="hidden" name="Id" value="@item.Id" />
+                            <input type="submit" value="Actualizar Stock" class="btn btn-outline-danger" />
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+<!--<div class="col-xs-12 col-sm-4">
+    <div class="panel box">
+        <div class="box-row">
+            <div class="box-cell p-x-2 p-y-1 bg-black text-xs-center font-size-11 font-weight-semibold">
+                <i class="fa fa-flash"></i>&nbsp;&nbsp;PICK LOAD
+            </div>
+        </div>
+        <div class="box-row">
+            <div class="box-cell p-y-2">
+                <div class="easy-pie-chart"-->
+@*data-suffix="%"*@
+<!--data-percent="50" id="easy-pie-chart-2">
+                    <span class="font-size-14 font-weight-light">73</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-2">
+    <div class="easy-pie-chart"-->
+@*data-suffix="%"*@
+<!--data-percent="" id="easy-pie-chart-2">
+        <span class="font-size-14 font-weight-light">73</span>
+    </div>
+</div>
+
+<div id="shiva"><span class="count">200</span></div>
+<div id="shiva"><span class="count">60</span></div>
+<div id="shiva"><span class="count">0</span></div>-->

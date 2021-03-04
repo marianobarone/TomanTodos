@@ -1,0 +1,29 @@
+﻿.easy-pie-chart {
+    position: relative;
+    display: block;
+    text-align: center
+}
+
+    .easy-pie-chart:after, .easy-pie-chart:before {
+        content: " ";
+        display: table
+    }
+
+    .easy-pie-chart:after {
+        clear: both
+    }
+
+    .easy-pie-chart > canvas {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .easy-pie-chart > span {
+        display: block;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        width: 100%
+    }
