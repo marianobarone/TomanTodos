@@ -50,11 +50,14 @@
                     <td class="align-middle">
                         @if (item.TipoMovimiento == TomanTodos.Models.TomanTodosModels.TipoMovimiento.Sustraccion)
                         {
-                            <label> -@cant</label>
+                            @*<label> -@cant</label>*@
+                            <span class="badge badge-danger col-md-8">-@Convert.ToInt32(@item.Cantidad)</span>
                         }
                         else
                         {
-                            <label>@cant</label>
+                            @*<label>@cant</label>*@
+                            <span class="badge badge-success col-md-8">@Convert.ToInt32(@item.Cantidad)</span>
+
                         }
                     </td>
                     

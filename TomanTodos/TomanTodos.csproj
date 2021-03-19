@@ -228,6 +228,12 @@
     <Content Include="Content\lib\easy-pie-chart\easypiechart.js" />
     <Content Include="Content\lib\easy-pie-chart\jquery.easypiechart.min.js" />
     <Content Include="Content\lib\favicon.png" />
+    <Content Include="Content\lib\img\loginImg.jpeg" />
+    <Content Include="Content\lib\img\logo.jpg" />
+    <Content Include="Content\lib\img\WhatsApp Image 2021-03-12 at 19.32.09.jpeg" />
+    <Content Include="Content\lib\img\WhatsApp Image 2021-03-12 at 19.32.10.jpeg" />
+    <Content Include="Content\lib\img\WhatsApp Image 2021-03-12 at 19.32.11 %281%29.jpeg" />
+    <Content Include="Content\lib\img\WhatsApp Image 2021-03-12 at 19.32.11.jpeg" />
     <Content Include="Content\lib\msgPop\msgPop.css" />
     <Content Include="Content\lib\msgPop\msgPop.js" />
     <Content Include="Content\lib\site.js" />
@@ -462,6 +468,7 @@
     <Content Include="webfonts\fa-brands-400.woff" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="Views\StockItems\IntercambiarProductos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

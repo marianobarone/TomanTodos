@@ -314,6 +314,91 @@ textarea {
     text-align: right;
 }
 
-.badge {
+/*.badge {
     width: 30%;
+}*/
+
+.margin-auto {
+    margin: auto;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+}
+
+.btn-login {
+    border-radius: 20px;
+}
+
+.login {
+    /*background-image: url('lib/img/WhatsApp Image 2021-03-12 at 19.32.09.jpeg');*/
+    background-image: url('lib/img/WhatsApp Image 2021-03-12 at 19.32.11.jpeg');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.row-login {
+    height: 100vh;
+}
+
+.input-group:not(.has-validation) > .form-control:not(:last-child) {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.span {
+    position: absolute;
+    margin-left: 5px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    padding-left: 25px;
+    height: 20px;
+}
+
+@media (min-width: 0) {
+    .container, .container-sm {
+        max-width: 540px;
+    }
+
+    .login {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) {
+    .container, .container-sm {
+        max-width: 540px;
+    }
+
+    .login {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .container, .container-sm, .container-md {
+        max-width: 720px;
+    }
+
+    .login {
+        display: flex;
+    }
+}
+
+@media (min-width: 992px) {
+    .container, .container-sm, .container-md, .container-lg {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container, .container-sm, .container-md, .container-lg, .container-xl {
+        max-width: 1140px;
+    }
 }

@@ -126,6 +126,94 @@ namespace TomanTodos.Controllers
             return RedirectToAction("Index");
         }
 
+        #region
+
+        [HttpGet]
+        public ActionResult IntercambiarProductos(Guid? id)
+        {
+            var productoSeleccionado = id == null ? db.Productos.Include(s => s.Stock.Select(suc => suc.Sucursal)).OrderBy(p => p.Nombre).FirstOrDefault() : db.Productos.FirstOrDefault(p => p.Id == id);
+
+            ViewBag.productoId = new SelectList(db.Productos.OrderBy(p => p.Nombre), "Id", "Nombre", productoSeleccionado.Id);
+            ViewBag.sucursalOrigenId = new SelectList(db.Sucursales.OrderBy(s => s.Nombre), "Id", "Nombre");
+            ViewBag.sucursalDestinoId = new SelectList(db.Sucursales.OrderBy(s => s.Nombre), "Id", "Nombre");
+
+            if (id != null)
+            {
+                var producto = db.Productos
+                                 .Include(s => s.Stock.Select(suc => suc.Sucursal))
+                                 .FirstOrDefault(p => p.Id == id);
+
+                return View(producto);
+            }
+
+            return View(productoSeleccionado);
+        }
+
+        [HttpPost]
+        public JsonResult IntercambiarProductos(Guid productoId, Guid sucursalOrigenId, Guid sucursalDestinoId, int cantidad)
+        {
+            var producto = db.Productos.FirstOrDefault(p => p.Id == productoId);
+            var sucursalOrigen = db.Sucursales.Include(s => s.StockItems).FirstOrDefault(s => s.Id == sucursalOrigenId);
+            var sucursalDestino = db.Sucursales.Include(s => s.StockItems).FirstOrDefault(s => s.Id == sucursalDestinoId);
+
+            var stockOrigen = sucursalOrigen.StockItems.FirstOrDefault(s => s.Producto == producto);
+            var stockDestino = sucursalDestino.StockItems.FirstOrDefault(s => s.Producto == producto);
+
+            if (stockDestino == null)
+            {
+                StockItem nuevoStock = new StockItem
+                {
+                    Id = Guid.NewGuid(),
+                    ProductoId = productoId,
+                    SucursalId = sucursalDestinoId
+                };
+
+                db.StockItems.Add(nuevoStock);
+
+                stockDestino = nuevoStock;
+            }
+
+            if (stockOrigen.Cantidad >= cantidad)
+            {
+                stockOrigen.Cantidad -= cantidad;
+                stockDestino.Cantidad += cantidad;
+
+                MovimientoDetalle detalle = new MovimientoDetalle
+                {
+                    Id = Guid.NewGuid(),
+                    FechaMovimiento = DateTime.Now,
+                    TipoMovimiento = TipoMovimiento.Sustraccion,
+                    Producto = producto,
+                    SucursalId = sucursalOrigenId,
+                    Sucursal = sucursalOrigen,
+                    Cantidad = cantidad
+                };
+
+                MovimientoDetalle detalle2 = new MovimientoDetalle
+                {
+                    Id = Guid.NewGuid(),
+                    FechaMovimiento = DateTime.Now,
+                    TipoMovimiento = TipoMovimiento.Adicion,
+                    Producto = producto,
+                    SucursalId = sucursalDestinoId,
+                    Sucursal = sucursalDestino,
+                    Cantidad = cantidad
+                };
+
+                var movimientoExistente = db.Movimientos.Include(d => d.MovimientosDetalle).FirstOrDefault(p => p.ProductoId == productoId);
+
+                movimientoExistente.MovimientosDetalle.Add(detalle);
+                movimientoExistente.MovimientosDetalle.Add(detalle2);
+
+                db.SaveChanges();
+            }
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("Index", "Home");
+        }
+
+        #endregion
+
         // GET: StockItems/AgregarStock
 
         public ActionResult AgregarStock(Guid? id)

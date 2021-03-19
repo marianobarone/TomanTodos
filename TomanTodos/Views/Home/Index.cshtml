@@ -50,25 +50,22 @@
                                 <i class="fa fa-minus" aria-hidden="true"></i>
                             </a>
                         </div>
-                    </div>
-                    @*<input type="text" value="10" id="numero_@id" />
-                    <input type="hidden" name="name" value="@item.Id" id="id_@id" />
-                    <input type="hidden" name="name" value="c8eb43a3-c188-4a2b-840b-e588b1bccbed" id="suc_@id" />*@
+                    </div>                
                 </div>
 
-                <!--<div id="sucursal_@id" class="collapse sucursales-transition">
+                <div id="sucursal_@id" class="collapse sucursales-transition">
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table" id="tbl-sucursales-home">
                                 <thead>
-                                    <tr>-->
-                                        @*<th>
+                                    <tr>
+                                        <th>
                                                 Sucursal
                                             </th>
                                             <th>
                                                 Cantidad
-                                            </th>*@
-                                    <!--</tr>
+                                            </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var s in item.Stock)
@@ -77,21 +74,6 @@
                                             <td>@Html.DisplayFor(modelItem => s.Sucursal.Nombre)</td>
                                             <td>@Html.DisplayFor(modelItem => s.Cantidad)</td>
 
-                                            <td>
-                                                <a id="ok" class="btn btn-outline-success" data-toggle="tooltip" data-placement="bottom" title="Agregar stock">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                <input type="number" name="name" value="" style="width:60px;"/>
-                                            </td>
-
-                                            <td>
-                                                <a class="btn btn-outline-danger" data-toggle="tooltip" data-placement="bottom" title="Descontar stock">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
 
                                         </tr>
                                     }
@@ -99,7 +81,7 @@
                             </table>
                         </div>
                     </div>
-                </div>-->
+                </div>
             </div>
         </div>
     }
@@ -152,14 +134,14 @@
                         @if (item.TipoMovimiento == TomanTodos.Models.TomanTodosModels.TipoMovimiento.Sustraccion)
                         {
                             <td>
-                                <span class="badge badge-danger">-@Convert.ToInt32(@item.Cantidad)</span>
+                                <span class="badge badge-danger col-md-4">-@Convert.ToInt32(@item.Cantidad)</span>
                             </td>
 
                         }
                         else
                         {
                             <td>
-                                <span class="badge badge-success">@Convert.ToInt32(@item.Cantidad)</span>
+                                <span class="badge badge-success col-md-4">@Convert.ToInt32(@item.Cantidad)</span>
                             </td>
 
                         }

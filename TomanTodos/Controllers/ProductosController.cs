@@ -315,26 +315,27 @@ namespace TomanTodos.Controllers
             base.Dispose(disposing);
         }
 
-        //[HttpPost]
+        [HttpPost]
         //public ActionResult Prueba(Guid productoId, Guid sucursalID, int cantidad)
-        //{
-        //    var sucursal = db.Sucursales.FirstOrDefault(s => s.Id == sucursalID);
+        public ActionResult Prueba(Guid p, Guid so, Guid sd)
+        {
+            //var sucursal = db.Sucursales.FirstOrDefault(s => s.Id == sucursalID);
 
-        //    var stock = db.StockItems.FirstOrDefault(s => s.ProductoId == productoId && s.SucursalId == sucursalID);
+            //var stock = db.StockItems.FirstOrDefault(s => s.ProductoId == productoId && s.SucursalId == sucursalID);
 
-        //    var movimientoExistente = db.Movimientos.Include(d => d.MovimientosDetalle).FirstOrDefault(p => p.ProductoId == productoId);
+            //var movimientoExistente = db.Movimientos.Include(d => d.MovimientosDetalle).FirstOrDefault(p => p.ProductoId == productoId);
 
-        //        if (stock != null)
-        //        {
-        //            if (stock.Cantidad >= cantidad)
-        //            {
-        //                stock.Cantidad -= cantidad;
-        //            }
-        //        }
-        //                return this.Json(new { code = (int)HttpStatusCode.OK, text = "funciona" });
+            //if (stock != null)
+            //{
+            //    if (stock.Cantidad >= cantidad)
+            //    {
+            //        stock.Cantidad -= cantidad;
+            //    }
+            //}
+            return this.Json(new { code = (int)HttpStatusCode.OK, text = "funciona" });
 
-        //    //return Json("ok", JsonRequestBehavior.AllowGet);
-        //}
+            //return Json("ok", JsonRequestBehavior.AllowGet);
+        }
     }
 }
 
