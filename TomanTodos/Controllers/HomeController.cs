@@ -18,7 +18,8 @@ namespace TomanTodos.Controllers
         //}
 
         private readonly ApplicationDbContext db = new ApplicationDbContext();
-
+        
+        #region Index
         //[Authorize]
         public ActionResult Index()
         {
@@ -31,6 +32,8 @@ namespace TomanTodos.Controllers
 
             return View(productos);
         }
+        #endregion
+
 
         public ActionResult About()
         {

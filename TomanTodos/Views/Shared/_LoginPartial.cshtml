@@ -6,23 +6,50 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+            @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+
+                @*<a class="nav-link dropdown-toggle" href="@Url.Action("Index", "Manage")" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hola @User.Identity.GetUserName()
+                    </a>*@
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })*@
+                    <a class="dropdown-item" href="@Url.Action("Index", "Productos")">Productos</a>
+                    <a class="dropdown-item" href="@Url.Action("VerStockProductos", "Productos")">Ver Stock</a>
+                    <a class="dropdown-item" href="@Url.Action("IntercambiarProductos", "StockItems")">Intercambiar</a>
+                    <a class="dropdown-item" href="@Url.Action("Index", "Sucursales")">Sucursales</a>
+                    <a class="dropdown-item" href="@Url.Action("Index", "Categorias")">Categorias</a>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </a>
+                </div>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+            </li>
         </ul>
+
+
     }
 }
 else
 {
-<ul class="nav navbar-nav navbar-right">
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Register", "Account")">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
-    </li>
-    @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
-</ul>
+    <ul class="nav navbar-nav navbar-right">
+        @*<li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Register", "Account")">Register</a>
+            </li>*@
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+        </li>
+        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
+    </ul>
 }

@@ -6,7 +6,6 @@
     var id = 0;
 }
 
-<br />
 <div class="row">
     @foreach (var item in Model)
     {
@@ -124,8 +123,8 @@
                     <tr>
                         <td>@item.FechaMovimiento.ToShortDateString()</td>
 
-                        <td>
-                            <img class="home-img" src="/Productos/RetrieveImage/@item.Producto.Id" alt="" height="50" width="50" />
+                        <td class="pl-0">
+                            <img class="home-img" src="/Productos/RetrieveImage/@item.Producto.Id" alt="" height="80" width="80" />
                         </td>
 
                         <td>@item.Sucursal.Nombre</td>

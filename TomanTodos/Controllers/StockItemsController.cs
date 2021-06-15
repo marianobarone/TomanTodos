@@ -15,14 +15,17 @@ namespace TomanTodos.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: StockItems
+        #region Index
+        [HttpGet]
         public ActionResult Index()
         {
             var stockItems = db.StockItems.Include(s => s.Producto).Include(s => s.Sucursal);
             return View(stockItems.ToList());
         }
+        #endregion
 
-        // GET: StockItems/Details/5
+        #region Details
+        [HttpGet]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -36,7 +39,10 @@ namespace TomanTodos.Controllers
             }
             return View(stockItem);
         }
+        #endregion
 
+        #region Create
+        [HttpGet]
         // GET: StockItems/Create
         public ActionResult Create()
         {
@@ -64,6 +70,9 @@ namespace TomanTodos.Controllers
             ViewBag.SucursalId = new SelectList(db.Sucursales, "Id", "Nombre", stockItem.SucursalId);
             return View(stockItem);
         }
+        #endregion
+
+
 
         // GET: StockItems/Edit/5
         public ActionResult Edit(Guid? id)
@@ -126,8 +135,7 @@ namespace TomanTodos.Controllers
             return RedirectToAction("Index");
         }
 
-        #region
-
+        #region IntercambiarProductos
         [HttpGet]
         public ActionResult IntercambiarProductos(Guid? id)
         {
@@ -159,63 +167,70 @@ namespace TomanTodos.Controllers
             var stockOrigen = sucursalOrigen.StockItems.FirstOrDefault(s => s.Producto == producto);
             var stockDestino = sucursalDestino.StockItems.FirstOrDefault(s => s.Producto == producto);
 
-            if (stockDestino == null)
+            try
             {
-                StockItem nuevoStock = new StockItem
+                if (stockDestino == null)
                 {
-                    Id = Guid.NewGuid(),
-                    ProductoId = productoId,
-                    SucursalId = sucursalDestinoId
-                };
+                    StockItem nuevoStock = new StockItem
+                    {
+                        Id = Guid.NewGuid(),
+                        ProductoId = productoId,
+                        SucursalId = sucursalDestinoId
+                    };
 
-                db.StockItems.Add(nuevoStock);
+                    db.StockItems.Add(nuevoStock);
 
-                stockDestino = nuevoStock;
+                    stockDestino = nuevoStock;
+                }
+
+                if (stockOrigen.Cantidad >= cantidad)
+                {
+                    stockOrigen.Cantidad -= cantidad;
+                    stockDestino.Cantidad += cantidad;
+
+                    MovimientoDetalle detalle = new MovimientoDetalle
+                    {
+                        Id = Guid.NewGuid(),
+                        FechaMovimiento = DateTime.Now,
+                        TipoMovimiento = TipoMovimiento.Sustraccion,
+                        Producto = producto,
+                        SucursalId = sucursalOrigenId,
+                        Sucursal = sucursalOrigen,
+                        Cantidad = cantidad
+                    };
+
+                    MovimientoDetalle detalle2 = new MovimientoDetalle
+                    {
+                        Id = Guid.NewGuid(),
+                        FechaMovimiento = DateTime.Now,
+                        TipoMovimiento = TipoMovimiento.Adicion,
+                        Producto = producto,
+                        SucursalId = sucursalDestinoId,
+                        Sucursal = sucursalDestino,
+                        Cantidad = cantidad
+                    };
+
+                    var movimientoExistente = db.Movimientos.Include(d => d.MovimientosDetalle).FirstOrDefault(p => p.ProductoId == productoId);
+
+                    movimientoExistente.MovimientosDetalle.Add(detalle);
+                    movimientoExistente.MovimientosDetalle.Add(detalle2);
+
+                    db.SaveChanges();
+                }
+
+                return Json("ok", JsonRequestBehavior.AllowGet);
+                //return RedirectToAction("Index", "Home");
             }
-
-            if (stockOrigen.Cantidad >= cantidad)
+            catch (Exception error)
             {
-                stockOrigen.Cantidad -= cantidad;
-                stockDestino.Cantidad += cantidad;
-
-                MovimientoDetalle detalle = new MovimientoDetalle
-                {
-                    Id = Guid.NewGuid(),
-                    FechaMovimiento = DateTime.Now,
-                    TipoMovimiento = TipoMovimiento.Sustraccion,
-                    Producto = producto,
-                    SucursalId = sucursalOrigenId,
-                    Sucursal = sucursalOrigen,
-                    Cantidad = cantidad
-                };
-
-                MovimientoDetalle detalle2 = new MovimientoDetalle
-                {
-                    Id = Guid.NewGuid(),
-                    FechaMovimiento = DateTime.Now,
-                    TipoMovimiento = TipoMovimiento.Adicion,
-                    Producto = producto,
-                    SucursalId = sucursalDestinoId,
-                    Sucursal = sucursalDestino,
-                    Cantidad = cantidad
-                };
-
-                var movimientoExistente = db.Movimientos.Include(d => d.MovimientosDetalle).FirstOrDefault(p => p.ProductoId == productoId);
-
-                movimientoExistente.MovimientosDetalle.Add(detalle);
-                movimientoExistente.MovimientosDetalle.Add(detalle2);
-
-                db.SaveChanges();
+                throw error;
             }
-
-            return Json("ok", JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("Index", "Home");
         }
 
         #endregion
 
-        // GET: StockItems/AgregarStock
-
+        #region AgregarStock
+        [HttpGet]
         public ActionResult AgregarStock(Guid? id)
         {
             if (id == null)
@@ -223,12 +238,19 @@ namespace TomanTodos.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var producto = db.Productos.Include(s => s.Stock)
+            try
+            {
+                var producto = db.Productos.Include(s => s.Stock)
                             .FirstOrDefault(p => p.Id == id);
 
-            ViewBag.SucursalId = new SelectList(db.Sucursales.OrderBy(s => s.Nombre), "Id", "Nombre");
+                ViewBag.SucursalId = new SelectList(db.Sucursales.OrderBy(s => s.Nombre), "Id", "Nombre");
 
-            return View(producto);
+                return View(producto);
+            }
+            catch (Exception error)
+            {
+                throw error;
+            }  
         }
 
         [HttpPost]
@@ -295,13 +317,14 @@ namespace TomanTodos.Controllers
                 //return RedirectToAction("VerStockProductos", "Productos");
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception e)
+            catch (Exception error)
             {
                 TempData["OK"] = false;
-                throw e;
+                throw error;
             }
 
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

@@ -11,6 +11,7 @@ namespace TomanTodos
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                     .Include("~/Scripts/jquery-{version}.js")
                     .Include("~/Content/lib/dataTables/jquery.dataTables.min.js")
+                    .Include("~/Scripts/select2.min.js")
                     );
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -29,10 +30,13 @@ namespace TomanTodos
                     );
 
             bundles.Add(new StyleBundle("~/Content/css")
-                    .Include("~/Content/bootstrap.css",
-                      "~/Content/site.css")
+                    .Include("~/Content/bootstrap.css")
+                    .Include("~/Content/site.css")
                     .Include("~/Content/lib/dataTables/dataTables.min.css")
                     .Include("~/Content/lib/dataTables/dataTables.bootstrap4.min.css")
+                    .Include("~/Content/css/select2.min.css")
+                    .Include("~/Content/css/select2-bootstrap4.min.css")
+                    //.Include("~/Content/css/select2-bootstrap.min.css")
                     //.Include("~/Content/lib/dataTables/jquery.dataTables.min.css")
                     );
         }

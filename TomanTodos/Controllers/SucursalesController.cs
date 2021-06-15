@@ -15,13 +15,16 @@ namespace TomanTodos.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Sucursales
+        #region Index
+        [HttpGet]
         public ActionResult Index()
         {
             var sucursales = db.Sucursales.Include(p => p.StockItems.Select(i => i.Producto)).OrderBy(d => d.Direccion)
                             .ToList();
             return View(sucursales);
         }
+        #endregion
+
 
         // GET: Sucursales/Details/5
         public ActionResult Details(Guid? id)

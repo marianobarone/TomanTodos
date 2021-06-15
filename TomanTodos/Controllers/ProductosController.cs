@@ -23,14 +23,17 @@ namespace TomanTodos.Controllers
         //}
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Productos
+        #region Index
+        [HttpGet]
         public ActionResult Index()
         {
             var productos = db.Productos.Include(p => p.Categoria);
             return View(productos.ToList());
         }
+        #endregion
 
-        // GET: StockProductos
+        #region VerStockProductos
+        [HttpGet]
         public ActionResult VerStockProductos()
         {
             var productos = db.Productos
@@ -40,26 +43,22 @@ namespace TomanTodos.Controllers
 
             return View(productos);
         }
+        #endregion
 
-        [HttpPost]
+        #region DetalleProductos
+        [HttpGet]
         public ActionResult DetallesProducto(Guid? id)
         {
-            //var sucursales = db.Sucursales
-            //                .Include(s => s.StockItems.Select(p => p.Producto))
-            //                .Where(p => p.== id);
-
-            //Select(p => p.Producto).Where(p => p.Id == id))
-            // .ToList();
-
-
             var producto = db.Productos
                             .Include(s => s.Stock.Select(suc => suc.Sucursal))
                             .FirstOrDefault(p => p.Id == id);
 
             return View(producto);
         }
+        #endregion
 
-        // GET: Productos/Details/5
+        #region Details
+        [HttpGet]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -73,7 +72,10 @@ namespace TomanTodos.Controllers
             }
             return View(producto);
         }
+        #endregion
 
+        #region Create
+        [HttpGet]
         // GET: Productos/Create
         public ActionResult Create()
         {
@@ -81,14 +83,12 @@ namespace TomanTodos.Controllers
             return View();
         }
 
-        // POST: Productos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nombre,Precio,Descuento,Activo,CategoriaId")] Producto producto, HttpPostedFileBase upload)
         {
-
             if (upload != null)
             {
                 HttpPostedFileBase FileBase = Request.Files[0];
@@ -108,7 +108,9 @@ namespace TomanTodos.Controllers
             ViewBag.CategoriaId = new SelectList(db.Categorias, "Id", "Nombre", producto.CategoriaId);
             return View(producto);
         }
+        #endregion
 
+        #region DevuelveFoto
         public ActionResult RetrieveImage(Guid id)
         {
             byte[] cover = GetImageFromDataBase(id);
@@ -129,11 +131,9 @@ namespace TomanTodos.Controllers
             //byte[] cover = q.First();
             return cover;
         }
-
-
+        #endregion
 
         #region ActualizarStock
-
         [HttpGet]
         public ActionResult ActualizarStock(Guid? id)
         {
@@ -145,12 +145,13 @@ namespace TomanTodos.Controllers
             var producto = db.Productos.Include(s => s.Stock)
                             .FirstOrDefault(p => p.Id == id);
 
-            ViewBag.SucursalId = new SelectList(db.Sucursales, "Id", "Nombre");
+            ViewBag.SucursalId = new SelectList(db.Sucursales.OrderBy(s => s.Nombre), "Id", "Nombre");
 
             return View(producto);
         }
+
         [HttpPost]
-        public ActionResult ActualizarStock(Guid productoId, Guid sucursalId, int cantidad)
+        public ActionResult ActualizarStock(Guid productoId, Guid sucursalId, int? cantidad)
         {
             var sucursal = db.Sucursales.FirstOrDefault(s => s.Id == sucursalId);
 
@@ -162,9 +163,9 @@ namespace TomanTodos.Controllers
             {
                 if (stock != null)
                 {
-                    if (stock.Cantidad >= cantidad)
+                    if (cantidad != null || stock.Cantidad >= cantidad)
                     {
-                        stock.Cantidad -= cantidad;
+                        stock.Cantidad -= (int)cantidad;
 
                         MovimientoDetalle detalle = new MovimientoDetalle
                         {
@@ -174,7 +175,7 @@ namespace TomanTodos.Controllers
                             Producto = db.Productos.FirstOrDefault(p => p.Id == productoId),
                             SucursalId = sucursalId,
                             Sucursal = db.Sucursales.FirstOrDefault(s => s.Id == sucursalId),
-                            Cantidad = cantidad
+                            Cantidad = (int)cantidad
                         };
 
                         if (movimientoExistente != null)
@@ -231,8 +232,8 @@ namespace TomanTodos.Controllers
         }
         #endregion
 
-
-        // GET: Productos/Edit/5
+        #region Edit
+        [HttpGet]
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -279,8 +280,10 @@ namespace TomanTodos.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
-        // GET: Productos/Delete/5
+        #region Delete
+        [HttpGet]
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -305,6 +308,8 @@ namespace TomanTodos.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
+
 
         protected override void Dispose(bool disposing)
         {

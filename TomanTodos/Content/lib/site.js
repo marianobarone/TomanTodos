@@ -1,4 +1,51 @@
-﻿
+﻿$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+
+    $('.select2').select2().on('select2:open', function (e) {
+        $('.select2-search__field').attr('placeholder', 'Buscar...');
+        addIcon()
+    })
+
+    $('.select2').select2({
+        theme: 'bootstrap4',
+    });
+
+    $('.select2-noSearch').select2({
+        theme: 'bootstrap4',
+        minimumResultsForSearch: Infinity,
+    });
+
+    $('div.dataTables_filter input').removeClass("form-control-sm");
+    $("div.datatable-productos").html('<button id="agregarProducto" class="btn btn-success ml-1 mb-3">Nuevo Producto</button>');
+    $("div.datatable-categorias").html('<button id="agregarCategoria" class="btn btn-success ml-1 mb-3">Nueva Categoria</button>');
+
+    $('#agregarProducto').on('click', function () {
+        window.location.href = '/Productos/Create';
+    });
+
+    $('#agregarCategoria').on('click', function () {
+        window.location.href = '/Categorias/Create';
+    });
+});
+
+$('.actualizarStock').on('click', function () {
+    var cantidad = $('.cantidadActualizar').val();
+
+    if (cantidad == "") {
+        alert("ERROR! La cantidad no puede estar vacia o ser 0");
+        event.preventDefault();
+    }
+});
+
+function addIcon() {
+    var isSearch = $('.select2-search').children()[1];
+
+    if (isSearch == undefined /*|| isSearch.className == 'fa fa-search'*/) {
+        $('.select2-search').append('<i class="fa fa-search select2-search-icon"></i>');
+    }
+}
+
+
 function notification(status, cantidad, producto, sucursal, movimiento) {
     MsgPop.closeAll();
     MsgPop.displaySmall = true;
@@ -27,7 +74,6 @@ function notification(status, cantidad, producto, sucursal, movimiento) {
 }
 
 
-$('[data-toggle="tooltip"]').tooltip()
 
 //$('.count').each(function () {
 //    $(this).prop('Counter', 0).animate({
@@ -62,29 +108,29 @@ $('.easy-pie-chart').easyPieChart({
     barColor: '#3da0ea'
 });
 
-$('#prueba').DataTable({
-    "paging": true,
+$('#table-productos').DataTable({
+    "paging": false,
     "searching": true,
     "info": false,
     "fixedHeader": true,
-    "order": [],
+    "order": [[1, "asc"]],
 
     "aoColumnDefs": [
-
         { "orderable": false, "targets": 0 },
-        { "orderable": false, "targets": 4 },
-        { "orderable": false, "targets": 5 },
-        { "orderable": false, "targets": 6 },
-
+        { "orderable": false, "width": "5%", "targets": 3 },
+        { "orderable": false, "width": "5%", "targets": 4 },
     ],
 
-    "dom": "<'row'<'col-md-12 mt-3 pr-1' f>>" +
-        "<'row'<'col-sm-12' tr>>" +
-        "<'row'<'col-md-12 d-flex justify-content-center mt-3' p>>",
+    //"dom": "<'row'><'col-md-6 mt-3 pr-1' f>" +
+    //    "<'row'<'col-sm-12' tr>>",
+
+    //+ "<'row'<'col-md-12 d-flex justify-content-center mt-3' p>>",
 
     //"dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
     //    "<'row'<'col-sm-12'tr>>" +
     //    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+    "dom": '<"row datatable-productos">ft',
 
     "scrollX": true,
     "scrollY": "400px",
@@ -98,12 +144,81 @@ $('#prueba').DataTable({
             "next": '<i class="fa fa-arrow-right">',
             "previous": '<i class="fa fa-arrow-left">'
         },
-        "zeroRecords": "Lo lamento no hay pakis resultados",
-        //"zeroRecords": "Nothing found - sorry",
+        "zeroRecords": "No hay resultados para la busqueda ingresada",
     }
 });
 
-$('#tabla-movimientos').DataTable({
+$('#table-categorias').DataTable({
+    "paging": false,
+    "searching": true,
+    "info": false,
+    "fixedHeader": true,
+    "columnDefs": [
+        { "width": "90%", "targets": 0 },
+        { "orderable": false, "width": "5%", "targets": 1 },
+        { "orderable": false, "width": "5%", "targets": 2 }
+    ],
+
+    "dom": '<"row datatable-categorias">ft',
+
+    "scrollX": true,
+    "scrollY": false,
+    "scrollCollapse": true,
+
+    "language": {
+        "search": "_INPUT_",
+        "search": '<div class="has-search"><span class="fa fa-search form-control-feedback"></span>',
+        "searchPlaceholder": "Buscar...",
+        "paginate": {
+            "next": '<i class="fa fa-arrow-right">',
+            "previous": '<i class="fa fa-arrow-left">'
+        },
+        "zeroRecords": "No hay resultados para la busqueda ingresada",
+    }
+});
+
+
+$('#table-stock').DataTable({
+    "paging": true,
+    "searching": true,
+    "info": false,
+    "fixedHeader": true,
+    "order": [[1, "asc"]],
+
+    "aoColumnDefs": [
+
+        { "orderable": false, "targets": 0 },
+        { "orderable": false, "targets": 4 },
+        { "orderable": false, "targets": 5 },
+        { "orderable": false, "targets": 6 },
+
+    ],
+
+    "dom": "<'row'<'col-md-12 mt-3 pr-1' f>>" +
+        "<'row'<'col-sm-12' tr>>",
+    //+ "<'row'<'col-md-12 d-flex justify-content-center mt-3' p>>",
+
+    //"dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+    //    "<'row'<'col-sm-12'tr>>" +
+    //    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+    "scrollX": true,
+    "scrollY": "405px",
+    "scrollCollapse": true,
+
+    "language": {
+        "search": "_INPUT_",
+        "search": '<div class="has-search"><span class="fa fa-search form-control-feedback"></span>',
+        "searchPlaceholder": "Buscar...",
+        "paginate": {
+            "next": '<i class="fa fa-arrow-right">',
+            "previous": '<i class="fa fa-arrow-left">'
+        },
+        "zeroRecords": "No hay resultados para la busqueda ingresada",
+    }
+});
+
+$('#table-movimientos').DataTable({
     "paging": true,
     "searching": true,
     "info": false,
@@ -119,17 +234,19 @@ $('#tabla-movimientos').DataTable({
         "<'row'<'col-md-12 d-flex justify-content-center mt-3' p>>",
 
     "scrollX": true,
-    "scrollY": "485px",
+    "scrollY": "405px",
     "scrollCollapse": true,
 
     "language": {
         "search": "_INPUT_",
         "search": '<div class="has-search"><span class="fa fa-search form-control-feedback"></span>',
         "searchPlaceholder": "Buscar...",
+        "lengthMenu": "Ver _MENU_ items",
         "paginate": {
             "next": '<i class="fa fa-arrow-right">',
             "previous": '<i class="fa fa-arrow-left">'
         },
+        "zeroRecords": "No hay resultados para la busqueda ingresada",
     }
 });
 
@@ -139,35 +256,24 @@ $('#index-table').DataTable({
     "info": false,
     "fixedHeader": true,
     "ordering": false,
-
     "scrollX": true,
-    "scrollY": "183px",
+    "scrollY": "195px",
     "scrollCollapse": true,
-
-    //"language": {
-    //    "search": "_INPUT_",
-    //    "search": '<div class="has-search"><span class="fa fa-search form-control-feedback"></span>',
-    //    "searchPlaceholder": "Buscar...",
-    //    "paginate": {
-    //        "next": '<i class="fa fa-arrow-right">',
-    //        "previous": '<i class="fa fa-arrow-left">'
-    //    },
-    //}
 });
 
 
 $("#productoId").change(function () {
     var id = $('#productoId').val();
+    window.location.href = '/StockItems/IntercambiarProductos/{0}'.replace('{0}', id);
 
     //window.location = "/StockItems/IntercambiarProductos/?Id=" + productoId;
 
     //var url = '/StockItems/IntercambiarProductos/?Id=%' + id;
     //var url = '/StockItems/IntercambiarProductos?Id=%2052951ab0-46a7-4859-830a-1726eba5ae1c';
     //var url = '/StockItems/IntercambiarProductos/{0}'.replace('{0}', id);
-    window.location.href = '/StockItems/IntercambiarProductos/{0}'.replace('{0}', id);;
 
     //window.location.href = '/StockItems/IntercambiarProductos/?Id=%' + id
-      
+
     //$.ajax({
     //    url: '/StockItems/IntercambiarProductos',
     //    dataType: "json",
@@ -190,19 +296,13 @@ $('#intercambiar').on('click', function () {
     var sucursalOrigenId = $('#sucursalOrigenId').val();
     var sucursalDestinoId = $('#sucursalDestinoId').val();
     var cantidad = $('#cantIntercambiar').val();
+
     if (sucursalOrigenId == sucursalDestinoId || cantidad == "") {
         //alert("Las Sucursales no pueden ser las mismas");
         alert("ERROR! Revise los datos ingresados. Las sucursales no pueden ser las mismas y la cantidad no puede estar vacia");
     }
-
-    else {
-        //var ob =
-        //{
-        //    p: productoId,
-        //    so: sucursalOrigenId,
-        //    sd: sucursalDestinoId,
-        //};
-
+    else
+    {
         $.ajax({
             url: '/StockItems/IntercambiarProductos',
             dataType: "json",
@@ -228,8 +328,9 @@ $('#intercambiar').on('click', function () {
             }
         });
     }
-    
+});
 
+//////////////////////BORRAR////////////////////////////////////
 
     //$(function () {
 
@@ -319,44 +420,43 @@ $('#intercambiar').on('click', function () {
     //        }
     //    });
 
-        //var ob =
-        //{
-        //    productoId: "uno",
-        //    sucursalID: "dos",
-        //    cantidad: "tres",
-        //};
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/Productos/Prueba",
-        //    data: {ob},
-        //    //contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (data) {
-        //        alert(data.d);
-        //    },
-        //    error: function (data) {
-        //        alert("fail");
-        //    }
-        //});
+    //var ob =
+    //{
+    //    productoId: "uno",
+    //    sucursalID: "dos",
+    //    cantidad: "tres",
+    //};
+    //$.ajax({
+    //    type: "POST",
+    //    url: "/Productos/Prueba",
+    //    data: {ob},
+    //    //contentType: "application/json; charset=utf-8",
+    //    dataType: "json",
+    //    success: function (data) {
+    //        alert(data.d);
+    //    },
+    //    error: function (data) {
+    //        alert("fail");
+    //    }
+    //});
 
-        //var ob =
-        //{
-        //    productoId: $('#id_1').val(),
-        //    sucursalID: $('#suc_1').val(),
-        //    cantidad: $('#numero_1').val(),
-        //};
+    //var ob =
+    //{
+    //    productoId: $('#id_1').val(),
+    //    sucursalID: $('#suc_1').val(),
+    //    cantidad: $('#numero_1').val(),
+    //};
 
-        //$.ajax({
+    //$.ajax({
 
-        //    url: '/Productos/Prueba',
-        //    method: "POST",
-        //    data: { cant: 10 },
-        //    //data: ob,
-        //    success: function (data) {
-        //        console.log(data);
-        //    },
-        //    error: function (data) {
-        //        alert("fail");
-        //    }
-        //});
-    });
+    //    url: '/Productos/Prueba',
+    //    method: "POST",
+    //    data: { cant: 10 },
+    //    //data: ob,
+    //    success: function (data) {
+    //        console.log(data);
+    //    },
+    //    error: function (data) {
+    //        alert("fail");
+    //    }
+    //});

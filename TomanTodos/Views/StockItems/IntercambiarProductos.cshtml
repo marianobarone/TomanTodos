@@ -13,21 +13,16 @@
         @if (Model != null)
         {
             <img src="/Productos/RetrieveImage/@Model.Id" alt="" height="300" width="300" class="rounded margin-auto" />
+            
             if (Model.Stock.Count != 0)
             {
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-intercambiar">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Stock Actual</th>
                             </tr>
                         </thead>
-
-                        @*@if (Model.Stock.Count != 0)
-                        {*@
-
-
-
 
                         @foreach (var item in Model.Stock)
                         {
@@ -36,15 +31,6 @@
                             </tr>
 
                         }
-                        @*}
-                        else
-                        {*@
-                        @*<tr>
-                            <td class="alert alert-danger alert-dismissible fade show" role="alert">No hay stock del producto en ninguna sucursal</td>
-                        </tr>*@
-                        @*}*@
-
-
                     </table>
                 </div>
             }
@@ -58,14 +44,14 @@
         }
     </div>
 
-    <div class="col-md-8 text-center">
+    <div class="col-md-8 text-center intercambiar">
 
         <h2 class="mb-5">Intercambiar stock @Model.Nombre</h2>
 
         <div class="row">
             <div class="col-md-6">
                 <label>Producto: </label>
-                @Html.DropDownList("productoId", null, htmlAttributes: new { @class = "form-control margin-auto" })
+                @Html.DropDownList("productoId", null, htmlAttributes: new { @class = "form-control margin-auto select2" })
             </div>
 
             <div class="col-md-6 form-group">
@@ -77,11 +63,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label>Sucursal Origen: </label>
-                @Html.DropDownList("sucursalOrigenId", null, htmlAttributes: new { @class = "form-control margin-auto" })
+                @Html.DropDownList("sucursalOrigenId", null, htmlAttributes: new { @class = "form-control margin-auto select2-noSearch" })
             </div>
             <div class="col-md-6">
                 <label>Sucursal Destino: </label>
-                @Html.DropDownList("sucursalDestinoId", null, htmlAttributes: new { @class = "form-control margin-auto" })
+                @Html.DropDownList("sucursalDestinoId", null, htmlAttributes: new { @class = "form-control margin-auto select2-noSearch" })
             </div>
         </div>
 

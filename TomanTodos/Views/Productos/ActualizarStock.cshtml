@@ -4,8 +4,8 @@
     ViewBag.Title = "Agregar Stock";
 }
 
-<br />  
-<h2>Actualizar Stock de "@Model.Nombre"</h2>
+<h2>Descontar Stock de "@Model.Nombre"</h2>
+<hr />
 
 <div class="row">
 
@@ -27,21 +27,25 @@
         <form action="/Productos/ActualizarStock" method="post">
 
             <div class="form-group">
-                <label>Cantidad a descontar</label>
+                <label class="control-label col-md-6">Cantidad a descontar</label>
                 <div class="col-md-10">
-                    <input type="number" name="cantidad" value="" min="1" class="form-control" />
+                    <input type="number" name="cantidad" value="" min="1" class="form-control cantidadActualizar"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Sucursal</label>
+                <label class="control-label col-md-2">Sucursal</label>
                 <div class="col-md-10">
-                    @Html.DropDownList("sucursalId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("sucursalId", null, htmlAttributes: new { @class = "form-control select2-noSearch" })
                 </div>
             </div>
 
-            <input type="hidden" name="productoId" value="@Model.Id" />
-            <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="hidden" name="productoId" value="@Model.Id" />
+                    <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary actualizarStock"/>
+                </div>
+            </div>
         </form>
     </div>
 </div>

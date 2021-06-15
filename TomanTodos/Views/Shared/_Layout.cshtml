@@ -15,38 +15,44 @@
     <link rel="stylesheet" href="~/Content/lib/easy-pie-chart/easy-pie-chart.css" />
     <link rel="stylesheet" href="~/Content/fontawesome-all.min.css" />
     <link rel="stylesheet" href="~/Content/lib/msgPop/msgPop.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="ttnavbar">
-            <a class="navbar-brand" href="#">Toman Todos</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        @*<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="ttnavbar">*@
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Toman Todos</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
-                    </li>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                        </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="@Url.Action("Index", "Productos")">Productos</a>
-                            <a class="dropdown-item" href="@Url.Action("VerStockProductos", "Productos")">Ver Stock</a>
-                            <a class="dropdown-item" href="@Url.Action("Index", "Sucursales")">Sucursales</a>
-                            <a class="dropdown-item" href="@Url.Action("Index", "Categorias")">Categorias</a>
-                            <a class="dropdown-item" href="@Url.Action("Index", "StockItems")">StockItems</a>
-                            <a class="dropdown-item" href="@Url.Action("Index", "MovimientoDetalles")">Movimientos</a>
-                        </div>
-                    </li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+                        <!--<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("Index", "Productos")">Productos</a>
+                                <a class="dropdown-item" href="@Url.Action("VerStockProductos", "Productos")">Ver Stock</a>
+                                <a class="dropdown-item" href="@Url.Action("IntercambiarProductos", "StockItems")">Intercambiar</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Sucursales")">Sucursales</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Categorias")">Categorias</a>-->
+                                @*<a class="dropdown-item" href="@Url.Action("Index", "MovimientoDetalles")">Movimientos</a>*@
+                            <!--</div>
+                        </li>-->
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
+           
         </nav>
     </header>
 

@@ -3,8 +3,30 @@
     padding-bottom: 20px;
 }
 
+* {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+    body::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    body::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+    }
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    padding-top: 30px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -154,7 +176,7 @@ textarea {
     display: block;
     width: 3.375rem;
     height: 2.375rem;
-    line-height: 2rem;
+    line-height: 2.5rem;
     text-align: center;
     pointer-events: none;
     color: #aaa;
@@ -179,6 +201,15 @@ textarea {
         border-color: #454d55;
     }
 
+.dataTables_scrollHead {
+    background-color: #343a40;
+    border-color: #454d55;
+}
+
+div.dataTables_scrollHead table.dataTable {
+    margin-top: 0 !important;
+}
+
 .scroll {
     /*height: 300px;*/
     /*overflow-y: scroll;*/
@@ -193,7 +224,42 @@ textarea {
     margin: 0px;
 }
 
-.dataTables_scrollBody {
+.dataTables_scrollBody::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgb(255 255 255 / 30%);
+    border-radius: 10px;
+    background-color: #ffffff;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 3s linear,opacity 3s linear;
+}
+
+.dataTables_scrollBody::-webkit-scrollbar {
+    width: 8px;
+    background-color: #ffffff;
+}
+
+.dataTables_scrollBody:hover::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    visibility: none;
+    opacity: 1;
+    transition: visibility 3s linear,opacity 3s linear;
+}
+
+.dataTables_scrollBody:hover::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F5F5F5;
+}
+
+.dataTables_scrollBody:hover::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+/*ESCONDER SCROLLBAR*/
+/*.dataTables_scrollBody {
     overflow-y: hidden !important;
 }
 
@@ -216,7 +282,7 @@ textarea {
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
         background-color: #555;
-    }
+    }*/
 
 .dataTables_paginate {
     cursor: not-allowed;
@@ -361,6 +427,82 @@ textarea {
     height: 20px;
 }
 
+.input-img {
+    max-width: 100%;
+}
+
+.table-intercambiar {
+    margin-bottom: 0px;
+}
+
+.datatable-productos, .datatable-categorias {
+    float: left;
+}
+
+#table-productos_wrapper,
+#table-categorias_wrapper {
+    margin-top: 1rem;
+}
+
+.dataTables_filter {
+    padding-right: .25rem !important;
+}
+
+.table-intercambiar .thead-dark th {
+    border: none;
+    border-radius: 6px;
+}
+
+.table-intercambiar tr:first-child td {
+    border-top: none;
+}
+
+.intercambiar .select2-container {
+    margin: 0 auto;
+}
+
+.select2 {
+    text-align: left;
+}
+
+.select2-container :focus {
+    outline: 0;
+    border-color: #80bdff !important;
+    box-shadow: 0 0 0 0.1rem rgb(0 123 255 / 25%);
+    -moz-box-shadow: 1px 11px 7px 1px rgba(0,123,255,0.75);
+}
+
+.select2-search--dropdown .select2-search__field {
+    height: 30px;
+    padding-right: 25px;
+}
+
+.select2-container--bootstrap4 .select2-dropdown .select2-results__option[aria-selected=true] {
+    color: #ffffff;
+    background-color: #343a40c9;
+}
+
+.select2-container--bootstrap4 .select2-results__option--highlighted, .select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.select2-container--bootstrap4 .select2-results > .select2-results__options {
+    max-height: 143px;
+    overflow-y: auto;
+}
+
+    .select2-container--bootstrap4 .select2-results > .select2-results__options::-webkit-scrollbar {
+        width: 4px;
+        background-color: #ffffff;
+    }
+
+    .select2-container--bootstrap4 .select2-results > .select2-results__options::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+    }
+
 @media (min-width: 0) {
     .container, .container-sm {
         max-width: 540px;
@@ -402,3 +544,161 @@ textarea {
         max-width: 1140px;
     }
 }
+
+.select2-search-icon {
+    position: absolute;
+    right: 10px;
+    padding-left: 13px;
+    color: grey;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top: 7px;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+    /* style glyph */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+/* align glyph */
+.left-addon .glyphicon {
+    left: 0px;
+}
+
+.right-addon .glyphicon {
+    right: 0px;
+}
+
+/* add padding  */
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
+
+
+input[type="checkbox"].ios8-switch {
+    position: absolute;
+    margin: 8px 0 0 16px;
+}
+
+    input[type="checkbox"].ios8-switch + label {
+        position: relative;
+        padding: 5px 0 0 50px;
+        line-height: 2.0em;
+        cursor: pointer;
+    }
+
+        input[type="checkbox"].ios8-switch + label:before {
+            content: "";
+            position: absolute;
+            display: block;
+            left: 0;
+            top: 0;
+            width: 40px; /* x*5 */
+            height: 24px; /* x*3 */
+            border-radius: 16px; /* x*2 */
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+
+        input[type="checkbox"].ios8-switch + label:after {
+            content: "";
+            position: absolute;
+            display: block;
+            left: 0px;
+            top: 0px;
+            width: 24px; /* x*3 */
+            height: 24px; /* x*3 */
+            border-radius: 16px; /* x*2 */
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+
+        input[type="checkbox"].ios8-switch + label:hover:after {
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+    input[type="checkbox"].ios8-switch:checked + label:after {
+        margin-left: 16px;
+    }
+
+    input[type="checkbox"].ios8-switch:checked + label:before {
+        background: #55D069;
+    }
+
+/* SMALL */
+
+input[type="checkbox"].ios8-switch-sm {
+    margin: 5px 0 0 10px;
+}
+
+    input[type="checkbox"].ios8-switch-sm + label {
+        position: relative;
+        padding: 0 0 0 32px;
+        line-height: 1.3em;
+    }
+
+        input[type="checkbox"].ios8-switch-sm + label:before {
+            width: 25px; /* x*5 */
+            height: 15px; /* x*3 */
+            border-radius: 10px; /* x*2 */
+        }
+
+        input[type="checkbox"].ios8-switch-sm + label:after {
+            width: 15px; /* x*3 */
+            height: 15px; /* x*3 */
+            border-radius: 10px; /* x*2 */
+        }
+
+        input[type="checkbox"].ios8-switch-sm + label:hover:after {
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+
+    input[type="checkbox"].ios8-switch-sm:checked + label:after {
+        margin-left: 10px; /* x*2 */
+    }
+
+/* LARGE */
+
+input[type="checkbox"].ios8-switch-lg {
+    margin: 10px 0 0 20px;
+}
+
+    input[type="checkbox"].ios8-switch-lg + label {
+        position: relative;
+        padding: 7px 0 0 60px;
+        line-height: 2.3em;
+    }
+
+        input[type="checkbox"].ios8-switch-lg + label:before {
+            width: 50px; /* x*5 */
+            height: 30px; /* x*3 */
+            border-radius: 20px; /* x*2 */
+        }
+
+        input[type="checkbox"].ios8-switch-lg + label:after {
+            width: 30px; /* x*3 */
+            height: 30px; /* x*3 */
+            border-radius: 20px; /* x*2 */
+        }
+
+        input[type="checkbox"].ios8-switch-lg + label:hover:after {
+            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+        }
+
+    input[type="checkbox"].ios8-switch-lg:checked + label:after {
+        margin-left: 20px; /* x*2 */
+    }

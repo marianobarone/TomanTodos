@@ -8,12 +8,11 @@
 <script src="~/Content/lib/dataTables/datatables.min.js"></script>
 <link rel="stylesheet" href="~/Content/lib/dataTables/datatables.min.css" />
 
-
-<br />
 <h2>Stock de Productos</h2>
+<hr />
 
 <div class="table-responsive">
-    <table class="table table-striped display" id="prueba" style="width:100%">
+    <table class="table table-striped display" id="table-stock" style="width:100%">
         <thead class="thead-dark">
             <tr>
                 <th></th>
@@ -49,7 +48,7 @@
 
                 <tr>
                     <td class="align-middle text-center">
-                        <img src="/Productos/RetrieveImage/@item.Id" alt="" height="120" width="120" class="rounded" />
+                        <img src="/Productos/RetrieveImage/@item.Id" alt="" height="120" width="120" class="home-img" />
                     </td>
 
                     <td class="align-middle">
@@ -64,26 +63,43 @@
                         @Html.DisplayFor(modelItem => cant)
                     </td>
 
+                    @*<td class="align-middle text-center">
+                                    <form action="/Productos/DetallesProducto" method="get">
+                                        <input type="hidden" name="Id" value="@item.Id" />
+                                        <input type="submit" value="Detalles" class="btn btn-primary" />
+                                    </form>
+                                </td>
+
+                        <td class="align-middle text-center">
+                            <form action="/StockItems/AgregarStock" method="get">
+                                <input type="hidden" name="Id" value="@item.Id" />
+                                <input type="submit" value="Agregar Stock" class="btn btn-outline-success" />
+                            </form>
+                        </td>
+
+                        <td class="align-middle text-center">
+                            <form action="/Productos/ActualizarStock" method="get">
+                                <input type="hidden" name="Id" value="@item.Id" />
+                                <input type="submit" value="Actualizar Stock" class="btn btn-outline-danger" />
+                            </form>
+                        </td>*@
+
                     <td class="align-middle text-center">
-                        <form action="/Productos/DetallesProducto" method="post">
-                            <input type="hidden" name="Id" value="@item.Id" />
-                            <input type="submit" value="Detalles" class="btn btn-primary" />
-                        </form>
+                        <a class="btn btn-outline-primary" href="@Url.Action("DetallesProducto", "Productos")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Detalles stock">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </a>
                     </td>
 
                     <td class="align-middle text-center">
-                        @*<form action="/Productos/AgregarStock" method="get">*@
-                        <form action="/StockItems/AgregarStock" method="get">
-                            <input type="hidden" name="Id" value="@item.Id" />
-                            <input type="submit" value="Agregar Stock" class="btn btn-outline-success" />
-                        </form>
+                        <a class="btn btn-outline-success" href="@Url.Action("AgregarStock", "StockItems")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Agregar stock">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </a>
                     </td>
 
                     <td class="align-middle text-center">
-                        <form action="/Productos/ActualizarStock" method="get">
-                            <input type="hidden" name="Id" value="@item.Id" />
-                            <input type="submit" value="Actualizar Stock" class="btn btn-outline-danger" />
-                        </form>
+                        <a class="btn btn-outline-danger" href="@Url.Action("ActualizarStock", "Productos")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Descontar stock">
+                            <i class="fa fa-minus" aria-hidden="true"></i>
+                        </a>
                     </td>
 
                 </tr>

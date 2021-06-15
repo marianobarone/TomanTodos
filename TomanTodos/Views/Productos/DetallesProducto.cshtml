@@ -25,7 +25,7 @@ else
             </th>
         </tr>
 
-        @foreach (var item in Model.Stock)
+        @foreach (var item in Model.Stock.OrderBy(s => s.Sucursal.Nombre))
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Sucursal.Nombre)</td>
