@@ -23,19 +23,20 @@ namespace TomanTodos
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap")
-                    .Include("~/Scripts/bootstrap.js")
+                    //.Include("~/Scripts/bootstrap.min.js")
+                    .Include("~/Scripts/bootstrap.bundle.min.js")
                     .Include("~/Content/lib/dataTables/datatables.min.js")
                     .Include("~/Content/lib/dataTables/dataTables.bootstrap4.min.js")
                     
                     );
 
-            bundles.Add(new StyleBundle("~/Content/css")
+            bundles.Add(new StyleBundle("~/Content/styles")
                     .Include("~/Content/bootstrap.css")
                     .Include("~/Content/site.css")
                     .Include("~/Content/lib/dataTables/dataTables.min.css")
                     .Include("~/Content/lib/dataTables/dataTables.bootstrap4.min.css")
-                    .Include("~/Content/css/select2.min.css")
-                    .Include("~/Content/css/select2-bootstrap4.min.css")
+                    .Include("~/Content/select2.min.css")
+                    .Include("~/Content/select2-bootstrap4.min.css")
                     //.Include("~/Content/css/select2-bootstrap.min.css")
                     //.Include("~/Content/lib/dataTables/jquery.dataTables.min.css")
                     );

@@ -213,10 +213,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\brands.css" />
     <Content Include="Content\brands.min.css" />
-    <Content Include="Content\css\select2-bootstrap.min.css" />
-    <Content Include="Content\css\select2-bootstrap4.min.css" />
-    <Content Include="Content\css\select2.css" />
-    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\select2-bootstrap4.css" />
+    <Content Include="Content\select2-bootstrap4.min.css" />
+    <Content Include="Content\select2.css" />
+    <Content Include="Content\select2.min.css" />
     <Content Include="Content\fontawesome-all.css" />
     <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome.css" />

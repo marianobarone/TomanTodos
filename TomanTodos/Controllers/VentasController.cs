@@ -11,6 +11,7 @@ using TomanTodos.Models.TomanTodosModels;
 
 namespace TomanTodos.Controllers
 {
+    [Authorize]
     public class VentasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

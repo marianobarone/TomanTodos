@@ -69,8 +69,9 @@ textarea {
     }
 
     .card-counter.primary {
-        background-color: #007bff;
-        color: #FFF;
+        /*background-color: #007bff;*/
+        background-color: #02e2b4b0;
+        color: #000;
     }
 
     .card-counter.danger {

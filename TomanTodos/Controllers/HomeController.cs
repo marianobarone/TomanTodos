@@ -8,6 +8,7 @@ using TomanTodos.Models;
 
 namespace TomanTodos.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         //private readonly ApplicationDbContext db;
@@ -20,7 +21,6 @@ namespace TomanTodos.Controllers
         private readonly ApplicationDbContext db = new ApplicationDbContext();
         
         #region Index
-        //[Authorize]
         public ActionResult Index()
         {
             var productos = db.Productos.Include(s => s.Stock.Select(suc => suc.Sucursal));

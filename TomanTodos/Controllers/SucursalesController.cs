@@ -11,6 +11,7 @@ using TomanTodos.Models.TomanTodosModels;
 
 namespace TomanTodos.Controllers
 {
+    [Authorize]
     public class SucursalesController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();

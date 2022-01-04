@@ -30,7 +30,7 @@
 
                     <td class="align-middle text-center">
                         @*@Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-warning" })*@
-                        <a class="btn btn-outline-warning" href="@Url.Action("Edita", "Categorias")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Editar categoria">
+                        <a class="btn btn-outline-warning" href="@Url.Action("Edit", "Categorias")?Id= @item.Id" data-toggle="tooltip" data-placement="bottom" title="Editar categoria">
                             <i class="fa fa-pen" aria-hidden="true"></i>
                         </a>
                     </td>

@@ -11,6 +11,7 @@ using TomanTodos.Models.TomanTodosModels;
 
 namespace TomanTodos.Controllers
 {
+    [Authorize]
     public class MovimientosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
